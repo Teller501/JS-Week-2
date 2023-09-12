@@ -12,8 +12,18 @@ async function getCountry(code){
     }
 }
 
+let prevElement = null;
+
 document.getElementById("layer2").addEventListener("click", async (ev) => {
     ev.preventDefault;
+
+    if (prevElement !== null) {
+        prevElement.style.fill = '#dcdcdc';
+    }
+    
+    ev.target.style.fill = '#4caf50';
+    prevElement = ev.target;
+
     const data = await getCountry(ev.target.id);
     const currencies = data.currencies;
     let currenciesHtml = "";
