@@ -1,0 +1,22 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.map {
+  flex: 1;
+}
+
+.info {
+  flex: 1;
+  padding-left: 20px;
+  border-left: 1px solid #ccc;
+}

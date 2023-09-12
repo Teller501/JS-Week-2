@@ -15,5 +15,17 @@ async function getCountry(code){
 document.getElementById("layer2").addEventListener("click", async (ev) => {
     ev.preventDefault;
     const data = await getCountry(ev.target.id);
-    
+    const currencies = data.currencies;
+    let currenciesHtml = "";
+
+    for (const currencyCode in currencies) {
+        const currency = currencies[currencyCode];
+        currenciesHtml += `<b>Currency:</b> ${currencyCode}, Name: ${currency.name}, Symbol: ${currency.symbol}`;
+    }
+
+    document.getElementById("countryInfo").innerHTML = `<p><b>Name:</b> ${data.name.common}</p>
+    <p><b>Member of UN:</b> ${data.unMember}</p>
+    <p>${currenciesHtml}</p>
+    <p><b>Capital:</b> ${data.capital}</p>
+    <p><b>Borders:</b> ${data.borders}`
 })
