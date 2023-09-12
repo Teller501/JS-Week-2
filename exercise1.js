@@ -12,6 +12,20 @@ async function asyncFetch(id){
     }
 }
 
+async function asyncFetchAll(){
+    try{
+        const res = await fetch(`https://jsonplaceholder.typicode.com/users`)
+        if(res.status >= 400){
+            const error = new Error(`Error ${res.status} ${res.statusText}`)
+            throw error
+        }
+        const data = await res.json()
+        return data;
+    }catch(err){
+        console.log(err.message)
+    }
+}
+
 document.getElementById("submitGet").addEventListener("click", async (ev) => {
     ev.preventDefault();
     const userId = document.getElementById("userId").value;
@@ -25,4 +39,13 @@ document.getElementById("submitGet").addEventListener("click", async (ev) => {
     <p>City: ${data.address.city}</p>
     <p>ZIP: ${data.address.zipcode}</p>
     <p>GEO (lat,lon): ${data.address.geo.lat}, ${data.address.geo.lng}</p>`
+})
+
+document.getElementById("submitGetAll").addEventListener("click", async (ev) => {
+    ev.preventDefault();
+    const data = await asyncFetchAll();
+    const tab = data.map((d) => {
+        return `<tr><th>${d.name}</th><th>${d.phone}</th></tr>`
+    }).join("")
+    document.getElementById("tbody").innerHTML = tab;
 })
